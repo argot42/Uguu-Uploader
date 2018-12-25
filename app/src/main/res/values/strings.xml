@@ -1,10 +1,18 @@
 <resources>
+    <!-- Main Activity -->
     <string name="app_name">Uguu Uploader</string>
 
     <!-- Login Activity -->
+    <string name="loginTitle">Login!</string>
     <string name="edtLoginUsername">Username</string>
     <string name="edtLoginPassword">Password</string>
     <string name="btnLogin">Log in</string>
     <string name="tvLoginSignin">Sign in</string>
     <string name="title_activity_main">Uguu Uploader</string>
+
+    <!-- Upload Activity -->
+    <string name="uploadTitle">Upload!</string>
+
+    <!-- Sign in Activity -->
+    <string name="signinTitle">Sign in</string>
 </resources>
