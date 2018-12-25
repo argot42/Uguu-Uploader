@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Uguu Uploader</string>
+
+    <!-- Login Activity -->
+    <string name="edtLoginUsername">Username</string>
+    <string name="edtLoginPassword">Password</string>
+    <string name="btnLogin">Log in</string>
+    <string name="tvLoginSignin">Sign in</string>
+    <string name="title_activity_main">Uguu Uploader</string>
 </resources>
