@@ -16,7 +16,8 @@
         android:contentDescription="Name"
         android:ems="10"
         android:hint="@string/edtLoginUsername"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:selectAllOnFocus="true" />
 
     <EditText
         android:id="@+id/edtLoginPassword"
@@ -28,7 +29,8 @@
         android:layout_marginTop="10dp"
         android:ems="10"
         android:hint="@string/edtLoginPassword"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:selectAllOnFocus="true" />
 
     <Button
         android:id="@+id/btnLogin"
