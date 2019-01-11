@@ -3,7 +3,6 @@
     <string name="app_name">Uguu Uploader</string>
 
     <!-- Login Activity -->
-    <string name="loginTitle">Login!</string>
     <string name="edtLoginUsername">Username</string>
     <string name="edtLoginPassword">Password</string>
     <string name="btnLogin">Log in</string>
@@ -15,4 +14,8 @@
 
     <!-- Sign in Activity -->
     <string name="signinTitle">Sign in</string>
+    <string name="edtSignInUsername">Username</string>
+    <string name="edtSignInPassword">Password</string>
+    <string name="edtSignInRepeat">Repeat Password</string>
+    <string name="btnSignIn">Sign In</string>
 </resources>

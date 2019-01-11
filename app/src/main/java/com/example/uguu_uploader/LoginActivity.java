@@ -6,8 +6,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class LoginActivity extends AppCompatActivity {
+
+    private static int NEWUSER = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +33,18 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(LoginActivity.this, SignInActivity.class);
-                startActivity(i);
+                startActivityForResult(i, NEWUSER);
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == NEWUSER) {
+            if (resultCode == RESULT_OK) {
+                final String username = data.getExtras().getString("username");
+                Toast.makeText(LoginActivity.this, username + " created!", Toast.LENGTH_LONG).show();
+            }
+        }
     }
 }
