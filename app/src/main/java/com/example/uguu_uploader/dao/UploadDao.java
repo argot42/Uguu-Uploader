@@ -18,6 +18,9 @@ public interface UploadDao {
     @Query("SELECT * FROM Upload WHERE id = :id")
     Upload getById(long id);
 
+    @Query("SELECT * FROM Upload WHERE user = :username")
+    List<Upload> getByUsername(String username);
+
     @Insert
     void insert(Upload u);
 
