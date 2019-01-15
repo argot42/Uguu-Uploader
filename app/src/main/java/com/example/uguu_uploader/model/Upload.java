@@ -14,6 +14,9 @@ public class Upload {
     private String customName;
     @NonNull
     private String path;
+    @NonNull
+    private String user;
+    private long uploadDate;
 
     public long getId() {
         return id;
@@ -47,6 +50,22 @@ public class Upload {
         this.path = path;
     }
 
+    public long getUploadDate() {
+        return uploadDate;
+    }
+
+    public void setUploadDate(long uploadDate) {
+        this.uploadDate = uploadDate;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
     @Override
     public String toString() {
         return "Upload{" +
@@ -54,6 +73,8 @@ public class Upload {
                 ", url='" + url + '\'' +
                 ", customName='" + customName + '\'' +
                 ", path='" + path + '\'' +
+                ", user='" + user + '\'' +
+                ", uploadDate=" + uploadDate +
                 '}';
     }
 }

@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         Intent intent = getIntent();
-        String username = intent.getStringExtra("username");
+        final String username = intent.getStringExtra("username");
         toolbar.setTitle("Uguu Uploader - " + username);
 
         setSupportActionBar(toolbar);
@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(MainActivity.this, UploadActivity.class);
+                i.putExtra("username", username);
                 startActivity(i);
             }
         });

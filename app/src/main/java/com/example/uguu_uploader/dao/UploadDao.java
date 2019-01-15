@@ -4,6 +4,7 @@ import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
+import android.arch.persistence.room.Update;
 
 import com.example.uguu_uploader.model.Upload;
 
@@ -19,6 +20,9 @@ public interface UploadDao {
 
     @Insert
     long insert(Upload u);
+
+    @Update
+    long update(Upload u);
 
     @Delete
     void delete(Upload u);

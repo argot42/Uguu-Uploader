@@ -10,7 +10,12 @@
     <string name="title_activity_main">Uguu Uploader</string>
 
     <!-- Upload Activity -->
-    <string name="uploadTitle">Upload!</string>
+    <string name="uploadTitle">Upload</string>
+    <string name="edtUploadPath">Path</string>
+    <string name="chkUploadRanFilename">Random Filename</string>
+    <string name="edtUploadCustomFilename">Custom Filename</string>
+    <string name="btnUploadUButton">Upload!</string>
+    <string name="btnUploadFile">File</string>
 
     <!-- Sign in Activity -->
     <string name="signinTitle">Sign in</string>
@@ -18,4 +23,7 @@
     <string name="edtSignInPassword">Password</string>
     <string name="edtSignInRepeat">Repeat Password</string>
     <string name="btnSignIn">Sign In</string>
+    
+    <!-- Upload row Layout -->
+    <string name="btnUploadRowDelete">Delete</string>
 </resources>

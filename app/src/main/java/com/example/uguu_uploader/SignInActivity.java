@@ -2,7 +2,6 @@ package com.example.uguu_uploader;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -23,8 +22,8 @@ public class SignInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
-        if (getActionBar() != null)
-            getActionBar().setDisplayHomeAsUpEnabled(true);
+        if (getSupportActionBar() != null)
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         final UguuDatabase db = UguuDatabase.getDatabase(SignInActivity.this);
 
@@ -111,7 +110,6 @@ public class SignInActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                //NavUtils.navigateUpFromSameTask(this);
                 finish();
                 return true;
             default:
