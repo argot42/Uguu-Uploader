@@ -1,6 +1,7 @@
 package com.example.uguu_uploader.model;
 
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
 import io.reactivex.annotations.NonNull;
@@ -11,12 +12,16 @@ public class Upload {
     @PrimaryKey(autoGenerate = true)
     private long id;
     private String url;
-    private String customName;
-    @NonNull
-    private String path;
+    private String name;
     @NonNull
     private String user;
     private long uploadDate;
+    @Ignore
+    private boolean randomfilename;
+    @Ignore
+    private String customName;
+    @Ignore
+    private String path;
 
     public long getId() {
         return id;
@@ -34,12 +39,12 @@ public class Upload {
         this.url = url;
     }
 
-    public String getCustomName() {
-        return customName;
+    public String getName() {
+        return name;
     }
 
-    public void setCustomName(String customName) {
-        this.customName = customName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPath() {
@@ -50,14 +55,6 @@ public class Upload {
         this.path = path;
     }
 
-    public long getUploadDate() {
-        return uploadDate;
-    }
-
-    public void setUploadDate(long uploadDate) {
-        this.uploadDate = uploadDate;
-    }
-
     public String getUser() {
         return user;
     }
@@ -66,15 +63,41 @@ public class Upload {
         this.user = user;
     }
 
+    public long getUploadDate() {
+        return uploadDate;
+    }
+
+    public void setUploadDate(long uploadDate) {
+        this.uploadDate = uploadDate;
+    }
+
+    public boolean isRandomfilename() {
+        return randomfilename;
+    }
+
+    public void setRandomfilename(boolean randomfilename) {
+        this.randomfilename = randomfilename;
+    }
+
+    public String getCustomName() {
+        return customName;
+    }
+
+    public void setCustomName(String customName) {
+        this.customName = customName;
+    }
+
     @Override
     public String toString() {
         return "Upload{" +
                 "id=" + id +
                 ", url='" + url + '\'' +
-                ", customName='" + customName + '\'' +
+                ", name='" + name + '\'' +
                 ", path='" + path + '\'' +
                 ", user='" + user + '\'' +
                 ", uploadDate=" + uploadDate +
+                ", randomfilename=" + randomfilename +
+                ", customName='" + customName + '\'' +
                 '}';
     }
 }

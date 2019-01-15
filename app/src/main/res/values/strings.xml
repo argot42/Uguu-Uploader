@@ -13,7 +13,7 @@
     <string name="uploadTitle">Upload</string>
     <string name="edtUploadPath">Path</string>
     <string name="chkUploadRanFilename">Random Filename</string>
-    <string name="edtUploadCustomFilename">Custom Filename</string>
+    <string name="edtUploadCustomFilename">Custom Filename (Optional)</string>
     <string name="btnUploadUButton">Upload!</string>
     <string name="btnUploadFile">File</string>
 

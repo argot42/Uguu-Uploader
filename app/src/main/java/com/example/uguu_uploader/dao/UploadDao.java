@@ -19,10 +19,10 @@ public interface UploadDao {
     Upload getById(long id);
 
     @Insert
-    long insert(Upload u);
+    void insert(Upload u);
 
     @Update
-    long update(Upload u);
+    int update(Upload u);
 
     @Delete
     void delete(Upload u);

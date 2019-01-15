@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         final String username = intent.getStringExtra("username");
-        toolbar.setTitle("Uguu Uploader - " + username);
+        toolbar.setTitle("Uguu Uploader | " + username);
 
         setSupportActionBar(toolbar);
 
