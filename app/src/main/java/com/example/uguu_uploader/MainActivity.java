@@ -3,20 +3,25 @@ package com.example.uguu_uploader;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 
 import com.example.uguu_uploader.adapter.UploadAdapter;
 import com.example.uguu_uploader.dao.UguuDatabase;
 import com.example.uguu_uploader.model.Upload;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+
+    private static int NEWUPLOAD = 0;
+    private List<Upload> uploads = new ArrayList<>();
+    private UploadAdapter uploadAdapter = new UploadAdapter(uploads);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent i = new Intent(MainActivity.this, UploadActivity.class);
                 i.putExtra("username", username);
-                startActivity(i);
+                startActivityForResult(i, NEWUPLOAD);
             }
         });
 
@@ -55,22 +60,28 @@ public class MainActivity extends AppCompatActivity {
         lstUploadList = findViewById(R.id.lstUploadList);
         lstUploadList.setHasFixedSize(true);
         lstUploadList.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+        lstUploadList.setAdapter(uploadAdapter);
 
         Runnable r = new Runnable() {
             @Override
             public void run() {
                 final UguuDatabase db = UguuDatabase.getDatabase(MainActivity.this);
-                final List<Upload> uploads = db.uploadDao().getByUsername(username);
-
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        lstUploadList.setAdapter(new UploadAdapter(uploads));
-                    }
-                });
+                List<Upload> ups = db.uploadDao().getByUsername(username);
+                uploads.addAll(ups);
+                uploadAdapter.notifyItemRangeInserted(0, ups.size());
             }
         };
         Thread t = new Thread(r);
         t.start();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == NEWUPLOAD) {
+            if (resultCode == RESULT_OK) {
+                Upload u = data.getExtras().getParcelable("newupload");
+                uploadAdapter.addItem(u);
+            }
+        }
     }
 }

@@ -3,11 +3,13 @@ package com.example.uguu_uploader.model;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import io.reactivex.annotations.NonNull;
 
 @Entity
-public class Upload {
+public class Upload implements Parcelable {
 
     @PrimaryKey(autoGenerate = true)
     private long id;
@@ -100,4 +102,56 @@ public class Upload {
                 ", customName='" + customName + '\'' +
                 '}';
     }
+
+
+    public enum State {
+        FAIL,
+        SUCCESS,
+        UPLOADING
+    }
+
+    public State getStatus() {
+        if (url == null)
+            return State.UPLOADING;
+        switch(url) {
+            case "":
+                return State.UPLOADING;
+            case "fail":
+                return State.FAIL;
+            default:
+                return State.SUCCESS;
+        }
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(id);
+        dest.writeString(url);
+        dest.writeString(name);
+        dest.writeString(user);
+        dest.writeLong(uploadDate);
+    }
+
+    public static final Creator<Upload> CREATOR = new Creator<Upload>() {
+        @Override
+        public Upload createFromParcel(Parcel source) {
+            Upload u = new Upload();
+            u.setId(source.readLong());
+            u.setUrl(source.readString());
+            u.setName(source.readString());
+            u.setUser(source.readString());
+            u.setUploadDate(source.readLong());
+            return u;
+        }
+
+        @Override
+        public Upload[] newArray(int size) {
+            return new Upload[size];
+        }
+    };
 }

@@ -1,5 +1,6 @@
 package com.example.uguu_uploader;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -58,6 +59,10 @@ public class UploadActivity extends AppCompatActivity {
                 if (u == null)
                     return;
                 save(u);
+
+                Intent output = new Intent();
+                output.putExtra("newupload", u);
+                setResult(Activity.RESULT_OK, output);
                 finish();
             }
         });
@@ -89,7 +94,7 @@ public class UploadActivity extends AppCompatActivity {
     private Upload upload(Upload u) {
         /* dummy */
         u.setUrl("");
-        u.setName("");
+        u.setName("TestName");
         u.setUser(username);
         return u;
     }
