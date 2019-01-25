@@ -124,11 +124,5 @@ public class UploadAdapter extends RecyclerView.Adapter<UploadAdapter.UploadView
     public void addItem(Upload u) {
         uploadList.add(u);
         notifyItemInserted(this.getItemCount() - 1);
-        Log.d("UploadAdapter", "1 ITEM ADDED");
-        /*boolean r = uploadList.add(u);
-        Log.d("UploadAdapter", "added! " + r);
-        if (!r)
-            return;
-        notifyItemInserted(uploadList.size() - 1);*/
     }
 }

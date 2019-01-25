@@ -2,34 +2,30 @@ package com.example.uguu_uploader;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.uguu_uploader.dao.UguuDatabase;
 import com.example.uguu_uploader.model.Upload;
-
-import org.w3c.dom.Text;
 
 public class UploadActivity extends AppCompatActivity {
 
-    private static String URL = "http://192.168.122.117/api.php?id=upload-tool";
-    //static String URL = "https://uguu.se/api.php?d=upload-tool";
+    private static int PICKFILE = 0;
 
-    private EditText edtUploadPath;
     private CheckBox chkUploadRanFilename;
     private EditText edtUploadCustomFilename;
 
-    private UguuDatabase db = UguuDatabase.getDatabase(this);
-
     private String username;
+
+    private Uri uri = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +39,6 @@ public class UploadActivity extends AppCompatActivity {
             getSupportActionBar().setTitle("upload | " + username);
         }
 
-        edtUploadPath = findViewById(R.id.edtUploadPath);
         chkUploadRanFilename = findViewById(R.id.chkUploadRanFilename);
         edtUploadCustomFilename = findViewById(R.id.edtUploadCustomFilename);
         Button btnUploadUButton = findViewById(R.id.btnUploadUButton);
@@ -55,10 +50,7 @@ public class UploadActivity extends AppCompatActivity {
                 Upload u = getUploadInfo();
                 if (u == null)
                     return;
-                u = upload(u);
-                if (u == null)
-                    return;
-                save(u);
+                Log.d("Upload", u.toString());
 
                 Intent output = new Intent();
                 output.putExtra("newupload", u);
@@ -70,44 +62,29 @@ public class UploadActivity extends AppCompatActivity {
         btnUploadFile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("Upload", "FILE!");
+                Intent i = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+                i.addCategory(Intent.CATEGORY_OPENABLE);
+                i.setType("image/*");
+                startActivityForResult(i, PICKFILE);
             }
         });
     }
 
     private Upload getUploadInfo() {
-        String path = edtUploadPath.getText().toString();
-        if (TextUtils.isEmpty(path)) {
-            Log.d("upload", "Empty Path");
-            Toast.makeText(this, "Empty Path", Toast.LENGTH_SHORT).show();
-            edtUploadPath.requestFocus();
+        if (uri == null) {
+            String msg = "No file selected";
+            Log.d("upload", msg);
+            Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
             return null;
         }
 
         Upload u = new Upload();
-        u.setPath(path);
+        u.setUri(uri);
         u.setRandomfilename(chkUploadRanFilename.isChecked());
         u.setCustomName(edtUploadCustomFilename.getText().toString());
-        return u;
-    }
-
-    private Upload upload(Upload u) {
-        /* dummy */
-        u.setUrl("");
-        u.setName("TestName");
         u.setUser(username);
+        u.setName(uri.getLastPathSegment());
         return u;
-    }
-
-    private void save(final Upload u) {
-        Runnable r = new Runnable() {
-            @Override
-            public void run() {
-                db.uploadDao().insert(u);
-            }
-        };
-        Thread t = new Thread(r);
-        t.start();
     }
 
     @Override
@@ -118,6 +95,21 @@ public class UploadActivity extends AppCompatActivity {
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent resultData) {
+        if (requestCode == PICKFILE && resultCode == Activity.RESULT_OK) {
+            if (resultData == null)
+                return;
+            uri = resultData.getData();
+            if (uri == null)
+                return;
+            Log.d("PickFile", "Uri: " + uri.toString());
+
+            TextView tvUploadPath = findViewById(R.id.tvUploadPath);
+            tvUploadPath.setText(uri.getPath());
         }
     }
 }

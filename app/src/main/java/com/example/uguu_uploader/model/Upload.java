@@ -3,6 +3,7 @@ package com.example.uguu_uploader.model;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
+import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -23,7 +24,7 @@ public class Upload implements Parcelable {
     @Ignore
     private String customName;
     @Ignore
-    private String path;
+    private Uri uri;
 
     public long getId() {
         return id;
@@ -49,12 +50,12 @@ public class Upload implements Parcelable {
         this.name = name;
     }
 
-    public String getPath() {
-        return path;
+    public Uri getUri() {
+        return uri;
     }
 
-    public void setPath(String path) {
-        this.path = path;
+    public void setUri(Uri uri) {
+        this.uri = uri;
     }
 
     public String getUser() {
@@ -95,7 +96,7 @@ public class Upload implements Parcelable {
                 "id=" + id +
                 ", url='" + url + '\'' +
                 ", name='" + name + '\'' +
-                ", path='" + path + '\'' +
+                ", uri='" + uri + '\'' +
                 ", user='" + user + '\'' +
                 ", uploadDate=" + uploadDate +
                 ", randomfilename=" + randomfilename +
@@ -133,8 +134,11 @@ public class Upload implements Parcelable {
         dest.writeLong(id);
         dest.writeString(url);
         dest.writeString(name);
+        dest.writeString(uri.toString());
         dest.writeString(user);
         dest.writeLong(uploadDate);
+        dest.writeByte((byte) (randomfilename ? 1 : 0));
+        dest.writeString(customName);
     }
 
     public static final Creator<Upload> CREATOR = new Creator<Upload>() {
@@ -144,8 +148,11 @@ public class Upload implements Parcelable {
             u.setId(source.readLong());
             u.setUrl(source.readString());
             u.setName(source.readString());
+            u.setUri(Uri.parse(source.readString()));
             u.setUser(source.readString());
             u.setUploadDate(source.readLong());
+            u.setRandomfilename(source.readByte() != 0);
+            u.setCustomName(source.readString());
             return u;
         }
 

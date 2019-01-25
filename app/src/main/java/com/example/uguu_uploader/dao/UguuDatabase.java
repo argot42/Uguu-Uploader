@@ -8,7 +8,7 @@ import android.content.Context;
 import com.example.uguu_uploader.model.Upload;
 import com.example.uguu_uploader.model.User;
 
-@Database(entities = {User.class, Upload.class}, version = 4, exportSchema = false)
+@Database(entities = {User.class, Upload.class}, version = 5, exportSchema = false)
 public abstract class UguuDatabase extends RoomDatabase {
 
     public abstract UserDao userDao();
