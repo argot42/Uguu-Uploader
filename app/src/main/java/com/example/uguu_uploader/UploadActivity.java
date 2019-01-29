@@ -83,7 +83,8 @@ public class UploadActivity extends AppCompatActivity {
         u.setRandomfilename(chkUploadRanFilename.isChecked());
         u.setCustomName(edtUploadCustomFilename.getText().toString());
         u.setUser(username);
-        u.setName(uri.getLastPathSegment());
+        u.setName(u.queryName(getApplicationContext().getContentResolver()));
+
         return u;
     }
 

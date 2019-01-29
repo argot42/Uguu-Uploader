@@ -3,9 +3,16 @@ package com.example.uguu_uploader.model;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
+import android.content.ContentResolver;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.provider.OpenableColumns;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 import io.reactivex.annotations.NonNull;
 
@@ -161,4 +168,42 @@ public class Upload implements Parcelable {
             return new Upload[size];
         }
     };
+
+    // URI queries
+    public String queryName(ContentResolver cr) {
+        Cursor returnCursor = cr.query(uri, null, null, null, null);
+        assert returnCursor != null;
+        int nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+        returnCursor.moveToFirst();
+        String name = returnCursor.getString(nameIndex);
+        returnCursor.close();
+        return name;
+    }
+
+    public String queryType(ContentResolver cr) {
+        return cr.getType(uri);
+    }
+
+    public byte[] queryBody(ContentResolver cr) {
+        try {
+            InputStream is = cr.openInputStream(uri);
+            if (is == null)
+                return null;
+            ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
+            byte[] buffer = new byte[1024];
+
+            int read;
+            while ((read = is.read(buffer)) != -1) {
+                if (read == 0)
+                    break;
+                byteBuffer.write(buffer, 0, read);
+            }
+            return byteBuffer.toByteArray();
+
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
 }

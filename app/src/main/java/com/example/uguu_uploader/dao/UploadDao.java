@@ -22,7 +22,7 @@ public interface UploadDao {
     List<Upload> getByUsername(String username);
 
     @Insert
-    void insert(Upload u);
+    long insert(Upload u);
 
     @Update
     int update(Upload u);
