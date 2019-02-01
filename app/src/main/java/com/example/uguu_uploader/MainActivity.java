@@ -1,17 +1,14 @@
 package com.example.uguu_uploader;
 
-import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.ContentResolver;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -60,9 +57,9 @@ public class MainActivity extends AppCompatActivity {
 
     private UguuDatabase db = UguuDatabase.getDatabase(this);
 
-    private static String url = "http://172.16.0.2/api.php?d=upload-tool"; // DEBUG
+    //private static String url = "http://172.16.0.2/api.php?d=upload-tool"; // DEBUG
     //private static String url = "http://192.168.0.12/api.php?d=upload-tool"; // DEBUG
-    //private static String url = "https://uguu.se/api.php?d=upload-tool";
+    private static String url = "https://uguu.se/api.php?d=upload-tool";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -248,10 +245,8 @@ public class MainActivity extends AppCompatActivity {
         Runnable r = new Runnable() {
             @Override
             public void run() {
-                // TODO: clean this
                 long i = db.uploadDao().insert(u);
                 u.setId(i);
-                Log.d("database", "saved! " + i + " -> " + u.toString());
             }
         };
         Thread t = new Thread(r);
@@ -262,9 +257,7 @@ public class MainActivity extends AppCompatActivity {
         Runnable r = new Runnable() {
             @Override
             public void run() {
-                // TODO: clean this
-                int i = db.uploadDao().update(u);
-                Log.d("database", "updated! " + i);
+                db.uploadDao().update(u);
             }
         };
         Thread t = new Thread(r);

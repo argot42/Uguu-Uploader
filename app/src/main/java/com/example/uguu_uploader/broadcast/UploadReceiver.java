@@ -13,7 +13,6 @@ import android.util.Log;
 import com.example.uguu_uploader.LoginActivity;
 import com.example.uguu_uploader.MainActivity;
 import com.example.uguu_uploader.R;
-import com.example.uguu_uploader.UploadActivity;
 import com.example.uguu_uploader.model.Upload;
 
 public class UploadReceiver extends BroadcastReceiver {
@@ -41,7 +40,6 @@ public class UploadReceiver extends BroadcastReceiver {
 
                 // clickable notification
                 i = new Intent(context, MainActivity.class);
-                i.putExtra("username", upload.getUser());
                 stackBuilder = TaskStackBuilder.create(context);
                 stackBuilder.addNextIntentWithParentStack(i);
                 resultPendingIntent = stackBuilder.getPendingIntent(1, PendingIntent.FLAG_UPDATE_CURRENT);
