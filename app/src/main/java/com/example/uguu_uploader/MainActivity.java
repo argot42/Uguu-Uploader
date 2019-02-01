@@ -1,16 +1,17 @@
 package com.example.uguu_uploader;
 
-import android.Manifest;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -31,6 +32,7 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 import com.example.uguu_uploader.adapter.UploadAdapter;
+import com.example.uguu_uploader.broadcast.UploadReceiver;
 import com.example.uguu_uploader.dao.UguuDatabase;
 import com.example.uguu_uploader.model.Upload;
 import com.example.uguu_uploader.request.MultipartRequest;
@@ -44,14 +46,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static android.os.Environment.getExternalStoragePublicDirectory;
-
 public class MainActivity extends AppCompatActivity {
 
     private static int NEWUPLOAD = 0;
     private static int NEWPHOTO = 1;
-
-    private static int WRITE_EXTERNAL_STORAGE_REQUEST = 0;
 
     private List<Upload> uploads = new ArrayList<>();
     private UploadAdapter uploadAdapter = new UploadAdapter(uploads);
@@ -79,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         setUpRecyclerView(username);
+        createNotificationChan();
 
         // Open upload activity
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -106,9 +105,6 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                     return false;
                 }
-                /*if (photoFile == null) {
-                    return false;
-                }*/
                 photoURI = FileProvider.getUriForFile(
                         getApplicationContext(),
                         "com.example.uguu_uploader.fileprovider",
@@ -189,6 +185,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 update(u);
                 uploadAdapter.notifyDataSetChanged();
+                broadcast(UploadReceiver.UPLOAD_SUCCESSFUL, u);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -209,6 +206,7 @@ public class MainActivity extends AppCompatActivity {
                 u.setUrl("fail");
                 update(u);
                 uploadAdapter.notifyDataSetChanged();
+                broadcast(UploadReceiver.UPLOAD_FAILED, u);
             }
         }) {
             @Override
@@ -283,5 +281,27 @@ public class MainActivity extends AppCompatActivity {
                 ".jpg",
                 storageDir
         );
+    }
+
+    // set up and registration of notification channel
+    private void createNotificationChan() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            String chanId = getString(R.string.uploadChannelID);
+            CharSequence name = getString(R.string.uploadChannelName);
+            String description = getString(R.string.uploadChannelDescription);
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(chanId, name, importance);
+            channel.setDescription(description);
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
+    // broadcast
+    private void broadcast(String type, Upload u) {
+        Intent i = new Intent();
+        i.setAction(type);
+        i.putExtra("upload", u);
+        sendBroadcast(i);
     }
 }

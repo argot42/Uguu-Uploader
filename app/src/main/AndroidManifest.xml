@@ -45,6 +45,16 @@
             android:name="android.support.FILE_PROVIDER_PATHS"
             android:resource="@xml/file_paths"></meta-data>
         </provider>
+        
+        <receiver
+            android:name=".broadcast.UploadReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.example.uguu_uploader.UPLOAD_SUCCESSFUL" />
+                <action android:name="com.example.uguu_uploader.UPLOAD_FAILURE" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

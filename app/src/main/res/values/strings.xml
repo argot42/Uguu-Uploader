@@ -26,4 +26,9 @@
     
     <!-- Upload row Layout -->
     <string name="btnUploadRowDelete">Delete</string>
+
+    <!-- upload notification -->
+    <string name="uploadChannelID">uploadchan</string>
+    <string name="uploadChannelName">upload chan</string>
+    <string name="uploadChannelDescription">receive notification whether upload succeed or not</string>
 </resources>
