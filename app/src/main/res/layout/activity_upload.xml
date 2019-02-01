@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UploadActivity">
+
+    <LinearLayout
+        android:id="@+id/hlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnUploadFile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/btnUploadFile" />
+
+        <TextView
+            android:id="@+id/tvUploadPath"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2" />
+
+    </LinearLayout>
+
+    <CheckBox
+        android:id="@+id/chkUploadRanFilename"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/hlayout"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="5dp"
+        android:text="@string/chkUploadRanFilename" />
+
+    <EditText
+        android:id="@+id/edtUploadCustomFilename"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/chkUploadRanFilename"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="5dp"
+        android:ems="10"
+        android:hint="@string/edtUploadCustomFilename"
+        android:inputType="textPersonName" />
+
+    <Button
+        android:id="@+id/btnUploadUButton"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="7dp"
+        android:text="@string/btnUploadUButton" />
+</RelativeLayout>

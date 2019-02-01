@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".SignInActivity">
+
+    <EditText
+        android:id="@+id/edtSignInUsername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/edtSignInUsername"
+        android:inputType="textPersonName"
+        android:selectAllOnFocus="true" />
+
+    <EditText
+        android:id="@+id/edtSignInPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/edtSignInPassword"
+        android:inputType="textPassword"
+        android:selectAllOnFocus="true" />
+
+    <EditText
+        android:id="@+id/edtSignInRepeat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/edtSignInRepeat"
+        android:inputType="textPassword"
+        android:selectAllOnFocus="true" />
+
+    <Button
+        android:id="@+id/btnSignIn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btnSignIn" />
+</LinearLayout>

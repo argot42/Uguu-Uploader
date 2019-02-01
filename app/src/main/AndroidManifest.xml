@@ -2,6 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.uguu_uploader">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-feature android:name="android.hardware.camera2"
+        android:required="true"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,13 +17,44 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LoginActivity">
+        <activity
+            android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/title_activity_main"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".UploadActivity"
+            android:label="@string/uploadTitle"/>
+        <activity
+            android:name=".SignInActivity"
+            android:label="@string/signinTitle"></activity>
+
+        <provider
+            android:authorities="com.example.uguu_uploader.fileprovider"
+            android:name="android.support.v4.content.FileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+        <meta-data
+            android:name="android.support.FILE_PROVIDER_PATHS"
+            android:resource="@xml/file_paths"></meta-data>
+        </provider>
+        
+        <receiver
+            android:name=".broadcast.UploadReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.example.uguu_uploader.UPLOAD_SUCCESSFUL" />
+                <action android:name="com.example.uguu_uploader.UPLOAD_FAILURE" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
