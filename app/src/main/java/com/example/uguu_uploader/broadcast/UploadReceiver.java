@@ -11,7 +11,6 @@ import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
 
 import com.example.uguu_uploader.LoginActivity;
-import com.example.uguu_uploader.MainActivity;
 import com.example.uguu_uploader.R;
 import com.example.uguu_uploader.model.Upload;
 
@@ -39,7 +38,7 @@ public class UploadReceiver extends BroadcastReceiver {
                 upload = intent.getExtras().getParcelable("upload");
 
                 // clickable notification
-                i = new Intent(context, MainActivity.class);
+                i = new Intent(context, LoginActivity.class);
                 stackBuilder = TaskStackBuilder.create(context);
                 stackBuilder.addNextIntentWithParentStack(i);
                 resultPendingIntent = stackBuilder.getPendingIntent(1, PendingIntent.FLAG_UPDATE_CURRENT);
