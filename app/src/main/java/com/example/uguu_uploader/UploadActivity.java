@@ -64,7 +64,7 @@ public class UploadActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(Intent.ACTION_OPEN_DOCUMENT);
                 i.addCategory(Intent.CATEGORY_OPENABLE);
-                i.setType("image/*");
+                i.setType("*/*");
                 startActivityForResult(i, PICKFILE);
             }
         });
