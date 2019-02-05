@@ -57,9 +57,9 @@ public class MainActivity extends AppCompatActivity {
 
     private UguuDatabase db = UguuDatabase.getDatabase(this);
 
-    private static String url = "http://172.16.0.2/api.php?d=upload-tool"; // DEBUG
+    //private static String url = "http://172.16.0.2/api.php?d=upload-tool"; // DEBUG
     //private static String url = "http://192.168.0.12/api.php?d=upload-tool"; // DEBUG
-    //private static String url = "https://uguu.se/api.php?d=upload-tool";
+    private static String url = "https://uguu.se/api.php?d=upload-tool";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
